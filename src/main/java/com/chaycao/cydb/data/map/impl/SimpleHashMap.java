@@ -1,6 +1,7 @@
 package com.chaycao.cydb.data.map.impl;
 
 import com.chaycao.cydb.data.map.AbstractMap;
+import com.chaycao.cydb.data.map.DbMap;
 
 import java.util.HashMap;
 
@@ -23,5 +24,9 @@ public class SimpleHashMap<K,V> extends AbstractMap<K,V>{
 
     public final V get(K k) {
         return map.get(k);
+    }
+
+    public int getType() {
+        return 0;
     }
 }

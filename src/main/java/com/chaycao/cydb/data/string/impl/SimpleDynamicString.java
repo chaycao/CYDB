@@ -31,4 +31,5 @@ public class SimpleDynamicString extends AbstractString {
     public final String toString() {
         return this.value.toString();
     }
+
 }

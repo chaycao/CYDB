@@ -5,8 +5,8 @@ import com.chaycao.cydb.data.DbData;
 /**
  * Created by chaycao on 2017/10/18.
  * chaycao@163.com
- *
  */
-public abstract class AbstractMap<K,V> implements DbMap<K,V> {
-
+public interface DbMap<K,V> extends DbData {
+    void put(K k, V v);
+    V get(K k);
 }

@@ -9,5 +9,6 @@ import com.chaycao.cydb.data.DbData;
  * 字符串类型
  * 把输入确定为String
  */
-public interface DbString extends DbData<String> {
+public interface DbString extends DbData {
+    int type = 0;
 }

@@ -5,4 +5,7 @@ package com.chaycao.cydb.data.string;
  * chaycao@163.com
  */
 public abstract class AbstractString implements DbString {
+    public int getType() {
+        return type;
+    }
 }
