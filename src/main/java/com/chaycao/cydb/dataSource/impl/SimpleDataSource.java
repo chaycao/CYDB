@@ -23,8 +23,8 @@ public class SimpleDataSource extends AbstractDataSource {
         map = new SimpleHashMap<DbString, DbData>();
     }
 
-    public SimpleDataSource(String File) {
-        load(File);
+    public SimpleDataSource(String file) {
+        load(file);
     }
 
     public void put(DbString k, DbData v) {

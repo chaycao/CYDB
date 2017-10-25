@@ -2,7 +2,10 @@ package com.chaycao.cydb.processor.impl;
 
 import com.chaycao.cydb.dao.Dao;
 import com.chaycao.cydb.dao.impl.SimpleDao;
+import com.chaycao.cydb.dataSource.DataSource;
+import com.chaycao.cydb.operation.impl.SimpleOperation;
 
+import java.io.*;
 import java.net.Socket;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,10 +19,10 @@ import java.util.List;
  */
 public class HttpRequestProcessor implements Runnable {
     private static List pool = new LinkedList<Socket>();  // 线程池
-    private Dao dao;
+    private DataSource source;
 
-    public HttpRequestProcessor(final String dataFile) {
-        this.dao = new SimpleDao(dataFile);
+    public HttpRequestProcessor(final DataSource source) {
+        this.source = source;
     }
 
     /**
@@ -53,7 +56,27 @@ public class HttpRequestProcessor implements Runnable {
             }
             // 取得连接后，对连接做处理
             // 先尝试把client的传过来的信息输出
-            // need
+            try {
+                OutputStream out = conn.getOutputStream();
+                BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                while (true) {
+                    String get = in.readLine();
+                    // 记录日志
+                    System.out.println(get + "  " + Thread.currentThread().getId());
+                    SimpleOperation operation = new SimpleOperation(get, source);
+                    String result = operation.execute()+"\n";
+                    out.write(result.getBytes());
+                    out.flush();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    conn.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 }

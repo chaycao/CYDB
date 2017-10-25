@@ -1,7 +1,11 @@
 package com.chaycao.cydb.server.impl;
 
+import com.chaycao.cydb.dao.Dao;
+import com.chaycao.cydb.dao.impl.SimpleDao;
 import com.chaycao.cydb.data.DbData;
 import com.chaycao.cydb.data.string.DbString;
+import com.chaycao.cydb.dataSource.DataSource;
+import com.chaycao.cydb.dataSource.impl.SimpleDataSource;
 import com.chaycao.cydb.processor.impl.HttpRequestProcessor;
 import com.chaycao.cydb.server.AbstractServer;
 
@@ -18,7 +22,7 @@ import java.net.Socket;
 public class HttpServer extends AbstractServer implements Runnable {
     private ServerSocket server;
     private int numThreads = 50; //处理进程数
-    private String dataFile;
+    private DataSource source;
 
     /**
      * 指定端口，不加载数据
@@ -36,7 +40,10 @@ public class HttpServer extends AbstractServer implements Runnable {
     public HttpServer(int port, String dataFile) {
         try {
             this.server = new ServerSocket(port);
-            this.dataFile = dataFile;
+            if (dataFile == null)
+                this.source = new SimpleDataSource();
+            else
+                this.source = new SimpleDataSource(dataFile);
         } catch (IOException e) {
             System.out.println("端口被占用！请尝试别的端口");
             e.printStackTrace();
@@ -51,10 +58,9 @@ public class HttpServer extends AbstractServer implements Runnable {
                 + server.getLocalPort());
         while (true){
             try {
-                Socket socket = server.accept();
-                // need
+                Socket request = server.accept();
                 // 调用HttpRequestProcessor处理
-//                HttpRequestProcessor.
+                HttpRequestProcessor.processRequest(request);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -67,8 +73,14 @@ public class HttpServer extends AbstractServer implements Runnable {
     public void initialize() {
         // 处理进程初始化
         for (int i = 0; i < numThreads; i++) {
-            Thread t = new Thread(new HttpRequestProcessor(this.dataFile));
+            Thread t = new Thread(new HttpRequestProcessor(source));
             t.start();
         }
+    }
+
+    public static void main(String[] args) {
+        HttpServer server = new HttpServer(8888);
+        Thread t = new Thread(server);
+        t.start();
     }
 }
