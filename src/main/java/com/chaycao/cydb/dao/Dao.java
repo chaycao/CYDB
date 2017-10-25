@@ -13,4 +13,6 @@ public interface Dao {
     public void put(DbString k, DbData v);
 
     public DbData get(DbString k);
+
+    public boolean save(String path);
 }

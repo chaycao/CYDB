@@ -1,5 +1,7 @@
 package com.chaycao.cydb.data;
 
+import java.io.Serializable;
+
 /**
  * Created by chaycao on 2017/10/18.
  * chaycao@163.com
@@ -8,7 +10,7 @@ package com.chaycao.cydb.data;
  * 目前实现该接口的类型有：
  * 1. DbString 字符串类型
  */
-public interface DbData {
+public interface DbData extends Serializable {
 
     /**
      * 用于显示打印

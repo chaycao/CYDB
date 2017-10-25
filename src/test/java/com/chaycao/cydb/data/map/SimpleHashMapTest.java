@@ -15,11 +15,12 @@ public class SimpleHashMapTest {
 
     @Test
     public void putString() {
-        SimpleHashMap<DbString, DbString> map = new SimpleHashMap<DbString, DbString>();
+        SimpleHashMap<DbData, DbData> map = new SimpleHashMap<DbData, DbData>();
         DbString key = new SimpleDynamicString("key");
         DbString value = new SimpleDynamicString("value");
         map.put(key, value);
-        DbString target = map.get(key);
+        DbData target = map.get(key);
+        System.out.println(target.getType());
         Assert.assertEquals("value", target.toString());
     }
 }

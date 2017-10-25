@@ -10,8 +10,4 @@ import com.chaycao.cydb.data.string.DbString;
  * 服务接口
  */
 public interface Server {
-
-    public void put(DbString k, DbData v);
-
-    public DbData get(DbString k);
 }

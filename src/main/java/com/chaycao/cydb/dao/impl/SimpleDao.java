@@ -17,6 +17,8 @@ public class SimpleDao extends AbstractDao {
         // source初始化
         if (dataFile == null) {
             source = new SimpleDataSource();
+        } else {
+            source = new SimpleDataSource(dataFile);
         }
     }
 
@@ -26,5 +28,14 @@ public class SimpleDao extends AbstractDao {
 
     public DbData get(DbString k) {
         return source.get(k);
+    }
+
+    public boolean save(String path) {
+        return source.save(path);
+    }
+
+    // for test
+    public DataSource getSource() {
+        return source;
     }
 }

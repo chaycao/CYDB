@@ -14,4 +14,8 @@ public interface DataSource {
     public void put(DbString k, DbData v);
 
     public DbData get(DbString k);
+
+    public boolean load(String path);
+
+    public boolean save(String path);
 }

@@ -29,4 +29,13 @@ public class SimpleHashMap<K,V> extends AbstractMap<K,V>{
     public int getType() {
         return 0;
     }
+
+    public int size() {
+        return map.size();
+    }
+
+    // for test
+    public HashMap<K, V> getMap() {
+        return map;
+    }
 }
