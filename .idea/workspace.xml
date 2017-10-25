@@ -1,16 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="754b1a8b-7ecb-4730-ad7b-7ba340d4bdd1" name="Default" comment="dao、dataSource实现加载、存储功能&#10;对SimpleDynamicString重写了hashcode() equals()方法">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/chaycao/cydb/operation/AbstractOperation.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/chaycao/cydb/operation/Operation.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/chaycao/cydb/operation/impl/SimpleOperation.java" />
+    <list default="true" id="754b1a8b-7ecb-4730-ad7b-7ba340d4bdd1" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/过程问题记录.md" afterPath="$PROJECT_DIR$/doc/过程问题记录.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/chaycao/cydb/client/impl/SimpleClient.java" afterPath="$PROJECT_DIR$/src/main/java/com/chaycao/cydb/client/impl/SimpleClient.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/chaycao/cydb/dataSource/impl/SimpleDataSource.java" afterPath="$PROJECT_DIR$/src/main/java/com/chaycao/cydb/dataSource/impl/SimpleDataSource.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/chaycao/cydb/processor/impl/HttpRequestProcessor.java" afterPath="$PROJECT_DIR$/src/main/java/com/chaycao/cydb/processor/impl/HttpRequestProcessor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/chaycao/cydb/server/impl/HttpServer.java" afterPath="$PROJECT_DIR$/src/main/java/com/chaycao/cydb/server/impl/HttpServer.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -1074,7 +1066,7 @@
       <workItem from="1508669181631" duration="99000" />
       <workItem from="1508728856107" duration="902000" />
       <workItem from="1508805466505" duration="24000" />
-      <workItem from="1508930583852" duration="10287000" />
+      <workItem from="1508930583852" duration="10339000" />
     </task>
     <task id="LOCAL-00001" summary="把DbMap修改为实现DbData的接口，DbMap，DbString中声明成员变量type记录类型，前者为1，后者为0。DbData声明getType方法，获取type类型。DbData&lt;T&gt;中的set方法删掉，和泛型T，删掉，原因：类型较复杂，set()方法不合适">
       <created>1508430955790</created>
@@ -1111,7 +1103,14 @@
       <option name="project" value="LOCAL" />
       <updated>1508935444919</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="dao、dataSource实现加载、存储功能&#10;对SimpleDynamicString重写了hashcode() equals()方法&#10;实现了服务器、客户端通信&#10;operation模块 处理客户端命令">
+      <created>1508940977851</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1508940977851</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1147,7 +1146,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="31634000" />
+    <option name="totallyTimeSpent" value="31686000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1358" y="-8" width="1456" height="876" extended-state="6" />
@@ -1195,7 +1194,8 @@
     <MESSAGE value="dao模块，操作dataSource" />
     <MESSAGE value="dataSource模块，负责存储内存数据" />
     <MESSAGE value="dao、dataSource实现加载、存储功能&#10;对SimpleDynamicString重写了hashcode() equals()方法" />
-    <option name="LAST_COMMIT_MESSAGE" value="dao、dataSource实现加载、存储功能&#10;对SimpleDynamicString重写了hashcode() equals()方法" />
+    <MESSAGE value="dao、dataSource实现加载、存储功能&#10;对SimpleDynamicString重写了hashcode() equals()方法&#10;实现了服务器、客户端通信&#10;operation模块 处理客户端命令" />
+    <option name="LAST_COMMIT_MESSAGE" value="dao、dataSource实现加载、存储功能&#10;对SimpleDynamicString重写了hashcode() equals()方法&#10;实现了服务器、客户端通信&#10;operation模块 处理客户端命令" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
