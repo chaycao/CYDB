@@ -1,6 +1,7 @@
 package com.chaycao.cydb.operation.impl;
 
 import com.chaycao.cydb.command.impl.Get;
+import com.chaycao.cydb.command.impl.Save;
 import com.chaycao.cydb.command.impl.Set;
 import com.chaycao.cydb.dataSource.DataSource;
 
@@ -32,6 +33,10 @@ public class SimpleOperation {
         if (c.equals("set")) {
             Set set = new Set(source);
             return set.exe(args[1], args[2]);
+        }
+        if (c.equals("save")) {
+            Save save = new Save(source);
+            return save.exe();
         }
         return "system error";
     }
