@@ -1,4 +1,4 @@
-package com.chaycao.cydb.command.util;
+package com.chaycao.cydb.util;
 
 import com.chaycao.cydb.command.impl.Get;
 import com.chaycao.cydb.command.impl.Set;
@@ -23,6 +23,7 @@ public class CommandUtil {
         String[] args = str.trim().split(" ");
         int len = args.length;
         String c = args[0].toLowerCase();
+        // 命令名检验 与 参数数量检验
         if (c.equals("get")) {
             if (vaildArgNum(2, 2, len))
                 return errorCommandHint(1, c);
@@ -31,6 +32,11 @@ public class CommandUtil {
         if (c.equals("set")) {
             if (vaildArgNum(3, 3, len))
                 return errorCommandHint(1, c);
+            return "OK";
+        }
+        if (c.equals("save")) {
+            if (vaildArgNum(1,1,len))
+                return errorCommandHint(1,c);
             return "OK";
         }
         return errorCommandHint(0, c);
