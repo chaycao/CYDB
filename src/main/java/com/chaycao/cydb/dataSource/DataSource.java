@@ -15,7 +15,7 @@ public interface DataSource {
 
     public DbData get(DbString k);
 
-    public boolean load(String path);
+    public boolean load();
 
-    public boolean save(String path);
+    public boolean save();
 }

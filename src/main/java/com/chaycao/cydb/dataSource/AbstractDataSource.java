@@ -5,4 +5,5 @@ package com.chaycao.cydb.dataSource;
  * chaycao@163.com
  */
 public abstract class AbstractDataSource implements DataSource {
+    protected int id;
 }

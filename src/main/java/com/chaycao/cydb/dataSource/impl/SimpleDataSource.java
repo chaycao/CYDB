@@ -19,12 +19,9 @@ import java.util.Map;
 public class SimpleDataSource extends AbstractDataSource {
     private DbMap<DbString, DbData> map;
 
-    public SimpleDataSource() {
-        map = new SimpleHashMap<DbString, DbData>();
-    }
-
-    public SimpleDataSource(String file) {
-        load(file);
+    public SimpleDataSource(int id) {
+        this.id = id;
+        load();
     }
 
     public void put(DbString k, DbData v) {
@@ -35,10 +32,21 @@ public class SimpleDataSource extends AbstractDataSource {
         return map.get(k);
     }
 
-    public boolean save(String path) {
+    public boolean save() {
+        String basePath = this.getClass().getClassLoader().getResource(".").getPath();
+        String dir = basePath + "db";
+        String path = basePath + "db/db" + id + ".data";
         ObjectOutputStream out = null;
         try {
-            out = new ObjectOutputStream(new FileOutputStream(path));
+            File d = new File(dir);
+            if (!d.exists()) {  //文件夹不存在
+                d.mkdir();
+            }
+            File f = new File(path);
+            if (!f.exists()) {  //文件不存在
+                f.createNewFile();
+            }
+            out = new ObjectOutputStream(new FileOutputStream(basePath+"db/db"+id+".data"));
             out.writeObject(map);
         } catch (IOException e) {
             e.printStackTrace();
@@ -47,10 +55,17 @@ public class SimpleDataSource extends AbstractDataSource {
         return true;
     }
 
-    public boolean load(String path) {
+    public boolean load() {
+        String basePath = this.getClass().getClassLoader().getResource(".").getPath();
+        String path = basePath + "db/db" + id + ".data";
         try {
-            ObjectInputStream in = new ObjectInputStream(new FileInputStream(path));
-            this.map = (DbMap<DbString, DbData>)in.readObject();
+            File f = new File(path);
+            if (!f.exists() || f.length() == 0) {  //文件内容为空
+                this.map = new SimpleHashMap<DbString, DbData>();
+            } else {
+                ObjectInputStream in = new ObjectInputStream(new FileInputStream(f));
+                this.map = (DbMap<DbString, DbData>)in.readObject();
+            }
         } catch (IOException e) {
             e.printStackTrace();
             return false;
