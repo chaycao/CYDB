@@ -1,8 +1,7 @@
 package com.chaycao.cydb.client.impl;
 
 import com.chaycao.cydb.client.AbstractClient;
-import com.chaycao.cydb.command.util.CommandUtil;
-import com.chaycao.cydb.server.Server;
+import com.chaycao.cydb.util.CommandUtil;
 
 import java.io.BufferedReader;
 import java.io.IOException;
