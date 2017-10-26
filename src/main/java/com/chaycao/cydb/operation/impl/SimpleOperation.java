@@ -1,7 +1,7 @@
 package com.chaycao.cydb.operation.impl;
 
-import com.chaycao.cydb.data.string.DbString;
-import com.chaycao.cydb.data.string.impl.SimpleDynamicString;
+import com.chaycao.cydb.command.impl.Get;
+import com.chaycao.cydb.command.impl.Set;
 import com.chaycao.cydb.dataSource.DataSource;
 
 /**
@@ -22,16 +22,18 @@ public class SimpleOperation {
     }
 
     public String execute() {
-        String[] args = command.split(" ");
-        if (args[0].equals("get")) {
-            DbString k = new SimpleDynamicString(args[1]);
-            return source.get(k).toString();
-        } else if (args[0].equals("put")) {
-            DbString k = new SimpleDynamicString(args[1]);
-            DbString v = new SimpleDynamicString(args[2]);
-            source.put(k, v);
-            return "OK";
+        String[] args = command.trim().split(" ");
+        int len = args.length;
+        String c = args[0].toLowerCase();
+        if (c.equals("get")) {
+            Get get = new Get(source);
+            return get.exe(args[1]);
         }
-        return args[0] + " is not a command";
+        if (c.equals("set")) {
+            Set set = new Set(source);
+            return set.exe(args[1], args[2]);
+        }
+        return "system error";
     }
+
 }

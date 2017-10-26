@@ -4,15 +4,10 @@
 
 定个小目标：
 
-1. 支持String-String类型
-2. 可增删改查
-3. 持久化
-4. 加载数据
+1. 数据的存储加载操作，由谁完成？
 
 已完成：
-1. DbData,DbMap,DBString的设计
-2. Server模块，一个SimpleServer内部用一个SimpleHashMap，可实现put\get操作
-
-问题：
-server应该有一个保存所有键值对的map，map<Dbdata,Dbdata>
-我以Dbdata的接口保存DbString的值，get返回的value，如何确定该类型
+1. server线程池支持与client通信
+2. 客户端向服务器发送请求，执行put get操作，服务器返回结果
+3. 支持类型：String-String
+4. 可保存数据、加载数据
