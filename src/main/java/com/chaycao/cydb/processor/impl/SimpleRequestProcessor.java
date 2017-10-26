@@ -1,7 +1,5 @@
 package com.chaycao.cydb.processor.impl;
 
-import com.chaycao.cydb.dao.Dao;
-import com.chaycao.cydb.dao.impl.SimpleDao;
 import com.chaycao.cydb.dataSource.DataSource;
 import com.chaycao.cydb.operation.impl.SimpleOperation;
 
@@ -17,11 +15,11 @@ import java.util.List;
  * 操作Dao层
  * 数据由Dao层加载，加载的位置，应该由Server传过来
  */
-public class HttpRequestProcessor implements Runnable {
+public class SimpleRequestProcessor implements Runnable {
     private static List pool = new LinkedList<Socket>();  // 线程池
     private DataSource source;
 
-    public HttpRequestProcessor(final DataSource source) {
+    public SimpleRequestProcessor(final DataSource source) {
         this.source = source;
     }
 
