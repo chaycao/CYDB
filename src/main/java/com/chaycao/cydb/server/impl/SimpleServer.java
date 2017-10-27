@@ -20,8 +20,7 @@ import java.util.ResourceBundle;
 public class SimpleServer extends AbstractServer implements Runnable {
     private ServerSocket server;
     private int numThreads = 50; //处理进程数
-    private DataSource source;
-    private int numDataSources;
+    private int numDataSources; //数据源个数
 
 
     /**
@@ -68,16 +67,11 @@ public class SimpleServer extends AbstractServer implements Runnable {
         else {
             this.numDataSources = Integer.valueOf(num);
         }
-        this.source = new SimpleDataSource(0);
-        for (int i = 1; i < numDataSources; i++) {
-            SimpleDataSource dataSource = new SimpleDataSource(i);
-        }
         // 处理进程初始化
         for (int i = 0; i < numThreads; i++) {
-            Thread t = new Thread(new SimpleRequestProcessor(source));
+            Thread t = new Thread(new SimpleRequestProcessor(numDataSources));
             t.start();
         }
-
     }
 
     public static void main(String[] args) {
@@ -85,4 +79,5 @@ public class SimpleServer extends AbstractServer implements Runnable {
         Thread t = new Thread(server);
         t.start();
     }
+
 }
