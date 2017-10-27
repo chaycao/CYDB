@@ -1,5 +1,7 @@
 package com.chaycao.cydb.util;
 
+import com.chaycao.cydb.client.Client;
+import com.chaycao.cydb.client.impl.SimpleClient;
 import com.chaycao.cydb.command.impl.Get;
 import com.chaycao.cydb.command.impl.Set;
 
@@ -11,6 +13,10 @@ import java.util.regex.Pattern;
  * chaycao@163.com
  */
 public class CommandUtil {
+
+    public CommandUtil() {
+    }
+
     /**
      * 检验命令是否合法
      * 若合法，返回OK
@@ -38,6 +44,21 @@ public class CommandUtil {
             if (vaildArgNum(1,1,len))
                 return errorCommandHint(1,c);
             return "OK";
+        }
+        if (c.equals("select")) {
+            if (vaildArgNum(2,2,len))
+                return errorCommandHint(1,c);
+            try {
+                int index = Integer.valueOf(args[1]);
+                if (index < 0)
+                    throw new Exception();
+            } catch (Exception e) {
+                return errorCommandHint(2, c);
+            }
+            return "OK";
+        }
+        if (c.equals("exit")) {
+            return "EXIT";
         }
         return errorCommandHint(0, c);
     }
@@ -67,6 +88,8 @@ public class CommandUtil {
                 return "(error) ERR unknown command '" + command + "'";
             case 1: //命令参数数量错误
                 return "(error) ERR wrong number of arguments for '" + command + "' command";
+            case 2: //索引错误
+                return "(error) ERR invalid DB index";
         }
         return "type has error";
     }
