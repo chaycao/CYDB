@@ -1,7 +1,10 @@
 package com.chaycao.cydb.processor.impl;
 
 import com.chaycao.cydb.dataSource.DataSource;
+import com.chaycao.cydb.dataSource.impl.SimpleDataSource;
 import com.chaycao.cydb.operation.impl.SimpleOperation;
+import com.chaycao.cydb.processor.AbstractProcessor;
+import com.chaycao.cydb.server.Server;
 
 import java.io.*;
 import java.net.Socket;
@@ -12,15 +15,16 @@ import java.util.List;
  * Created by chaycao on 2017/10/21.
  * chaycao@163.com
  *
- * 操作Dao层
- * 数据由Dao层加载，加载的位置，应该由Server传过来
+ * 一个实例负责处理一个客户端
  */
-public class SimpleRequestProcessor implements Runnable {
+public class SimpleRequestProcessor extends AbstractProcessor implements Runnable {
     private static List pool = new LinkedList<Socket>();  // 线程池
     private DataSource source;
+    private int numDataSources; //数据源编号上限
 
-    public SimpleRequestProcessor(final DataSource source) {
-        this.source = source;
+    public SimpleRequestProcessor(int numDataSources) {
+        this.numDataSources = numDataSources;
+        source = new SimpleDataSource(0); //初始默认0号数据库
     }
 
     /**
@@ -52,19 +56,21 @@ public class SimpleRequestProcessor implements Runnable {
                 }
                 conn = (Socket) pool.remove(0); //取出第一个请求处理
             }
-            // 取得连接后，对连接做处理
-            // 先尝试把client的传过来的信息输出
+            // 取得连接后
             try {
                 OutputStream out = conn.getOutputStream();
+                // 循环处理client的请求
                 BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                 while (true) {
                     String get = in.readLine();
-                    // 记录日志
-                    System.out.println(get + "  " + Thread.currentThread().getId());
-                    SimpleOperation operation = new SimpleOperation(get, source);
-                    String result = operation.execute()+"\n";
-                    out.write(result.getBytes());
-                    out.flush();
+                    if (get != null && get.length() > 0) {
+                        // 记录日志
+                        System.out.println(get + "  " + Thread.currentThread().getId());
+                        SimpleOperation operation = new SimpleOperation(get, source, this);
+                        String result = operation.execute() + "\n";
+                        out.write(result.getBytes());
+                        out.flush();
+                    }
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -76,5 +82,16 @@ public class SimpleRequestProcessor implements Runnable {
                 }
             }
         }
+    }
+
+    /**
+     * 设置数据源
+     */
+    public void setDataSource(DataSource source) {
+        this.source = source;
+    }
+
+    public int getNumDataSources() {
+        return this.numDataSources;
     }
 }
