@@ -55,6 +55,10 @@ public class SimpleDataSource extends AbstractDataSource {
         return true;
     }
 
+    public int getId() {
+        return this.id;
+    }
+
     public boolean load() {
         String basePath = this.getClass().getClassLoader().getResource(".").getPath();
         String path = basePath + "db/db" + id + ".data";

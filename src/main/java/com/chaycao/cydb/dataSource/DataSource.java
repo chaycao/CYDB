@@ -18,4 +18,6 @@ public interface DataSource {
     public boolean load();
 
     public boolean save();
+
+    public int getId();
 }
